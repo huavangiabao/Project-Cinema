@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cinemax OS - Hệ thống Quản trị & Bán vé Rạp chiếu phim phong cách Minimalism Clean Light hiện đại, tối ưu tốc độ vận hành.">
+  <title>Cinemax OS - Quản Trị & Bán Vé Rạp Chiếu Phim</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- ==========================================
+         SIDEBAR NAVIGATION
+         ========================================== -->
+    <aside class="sidebar" id="app-sidebar" aria-label="Thanh điều hướng chính">
+      <div>
+        <!-- Brand Identity -->
+        <div class="brand-section">
+          <div class="brand-logo-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="4"></rect>
+              <path d="M7 2v20"></path>
+              <path d="M17 2v20"></path>
+              <path d="M2 12h20"></path>
+              <path d="M2 7h5"></path>
+              <path d="M2 17h5"></path>
+              <path d="M17 17h5"></path>
+              <path d="M17 7h5"></path>
+            </svg>
+          </div>
+          <div class="brand-info">
+            <h1>CINEMAX OS</h1>
+            <span>Cinema Operations</span>
+          </div>
+        </div>
+
+        <!-- Main Nav List -->
+        <nav class="nav-menu" id="main-nav">
+          <div class="nav-section-label">Hệ thống</div>
+          
+          <button class="nav-item active" id="nav-btn-dashboard" data-view="dashboard" aria-label="Trang Tổng quan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="9" rx="1"></rect>
+              <rect x="14" y="3" width="7" height="5" rx="1"></rect>
+              <rect x="14" y="12" width="7" height="9" rx="1"></rect>
+              <rect x="3" y="16" width="7" height="5" rx="1"></rect>
+            </svg>
+            <span>Tổng quan</span>
+          </button>
+
+          <button class="nav-item" id="nav-btn-schedule" data-view="schedule" aria-label="Trang Lịch chiếu và Sơ đồ ghế">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Lịch chiếu & Ghế</span>
+          </button>
+
+          <button class="nav-item" id="nav-btn-pos" data-view="pos" aria-label="Trang Bán vé tại quầy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span>Bán vé tại quầy (POS)</span>
+            <span class="nav-item-badge">Live</span>
+          </button>
+
+          <button class="nav-item" id="nav-btn-reports" data-view="reports" aria-label="Trang Báo cáo và Doanh thu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>Báo cáo doanh thu</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Current Cashier / User Info -->
+      <div class="sidebar-user">
+        <div class="user-avatar" title="Trần Minh Quân">MQ</div>
+        <div class="user-info">
+          <div class="user-name">Trần Minh Quân</div>
+          <div class="user-role">
+            <span class="status-dot"></span>
+            <span>Thu ngân Ca Sáng</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==========================================
+         MAIN AREA (HEADER + CONTENT)
+         ========================================== -->
+    <main class="main-area">
+      <!-- Top Minimal Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <!-- Cinema Branch Switcher -->
+          <div class="branch-selector" id="branch-dropdown-btn" title="Đổi cụm rạp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span id="current-branch-label">CGV Landmark 81 • TP.HCM</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Quick Search Button -->
+          <button class="quick-search-btn" id="btn-open-search" aria-label="Tìm kiếm nhanh">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Tìm phim, mã vé, phòng...</span>
+            <span class="kbd-shortcut">Ctrl K</span>
+          </button>
+
+          <!-- Live Digital Clock -->
+          <div class="header-clock" id="header-live-clock">18:00:00</div>
+        </div>
+      </header>
+
+      <!-- Viewport Content Container -->
+      <div class="content-viewport" id="content-viewport">
+
+        <!-- ==============================================================
+             PAGE 1: TỔNG QUAN (DASHBOARD)
+             ============================================================== -->
+        <section class="view-page active" id="view-dashboard" aria-label="Dashboard Tổng quan">
+          <div class="view-header">
+            <div class="view-title">
+              <h2>Tổng Quan Vận Hành</h2>
+              <p>Thống kê trực tiếp doanh thu vé, tỷ lệ lấp đầy phòng chiếu hôm nay.</p>
+            </div>
+            <div class="view-actions">
+              <button class="btn btn-secondary" id="btn-refresh-dashboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M23 4v6h-6"></path>
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+                <span>Làm mới</span>
+              </button>
+              <button class="btn btn-primary" id="btn-quick-goto-pos">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Mở bán vé ngay</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 4 Metric Cards -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Doanh Thu Hôm Nay</span>
+                <div class="metric-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="metric-revenue">148.620.000 đ</div>
+              <div class="metric-footer">
+                <span class="trend-badge trend-up">↑ 14.2%</span>
+                <span>so với cùng kỳ tuần trước</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Số Vé Đã Bán</span>
+                <div class="metric-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="metric-tickets">1.482 vé</div>
+              <div class="metric-footer">
+                <span class="trend-badge trend-up">↑ 128 vé</span>
+                <span>trong 2 giờ qua</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Tỷ Lệ Lấp Đầy</span>
+                <div class="metric-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="metric-occupancy">74.8%</div>
+              <div class="metric-footer">
+                <div class="progress-track" style="width: 80px;">
+                  <div class="progress-fill" style="width: 74.8%;"></div>
+                </div>
+                <span>Mục tiêu ngày: 70%</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Phòng Chiếu Hoạt Động</span>
+                <div class="metric-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="metric-rooms">4 / 4 Phòng</div>
+              <div class="metric-footer">
+                <span class="trend-badge trend-up">100% Hoạt động</span>
+                <span>Không có sự cố kỹ thuật</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Main Sections -->
+          <div class="dashboard-columns">
+            <!-- Left: Upcoming Showtimes Cards & Revenue Minimal Chart -->
+            <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+              <div class="card">
+                <div class="card-header">
+                  <h3>Suất Chiếu Sắp Diễn Ra (Next 2 Hours)</h3>
+                  <span style="font-size: 12px; color: var(--text-tertiary);">Tự động cập nhật</span>
+                </div>
+                <div class="card-body">
+                  <div class="showtime-card-list" id="dashboard-showtimes-list">
+                    <!-- Populated dynamically via JS -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Minimal Hourly Revenue Trend Chart -->
+              <div class="card">
+                <div class="card-header">
+                  <h3>Nhịp Độ Doanh Thu Theo Giờ (Hôm Nay)</h3>
+                  <div style="display: flex; gap: 8px; font-size: 11px;">
+                    <span style="display: inline-flex; align-items: center; gap: 4px; color: var(--accent-indigo); font-weight: 600;">
+                      <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-indigo);"></span> Doanh thu vé
+                    </span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-container">
+                    <svg class="chart-svg" viewBox="0 0 700 160" preserveAspectRatio="none">
+                      <!-- Grid lines -->
+                      <line x1="0" y1="40" x2="700" y2="40" stroke="#F1F5F9" stroke-width="1"></line>
+                      <line x1="0" y1="80" x2="700" y2="80" stroke="#F1F5F9" stroke-width="1"></line>
+                      <line x1="0" y1="120" x2="700" y2="120" stroke="#F1F5F9" stroke-width="1"></line>
+                      <!-- Chart Area -->
+                      <defs>
+                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#4F46E5" stop-opacity="0.16"></stop>
+                          <stop offset="100%" stop-color="#4F46E5" stop-opacity="0.00"></stop>
+                        </linearGradient>
+                      </defs>
+                      <path d="M 0 140 Q 60 120, 120 100 T 240 70 T 360 45 T 480 30 T 600 20 T 700 10 L 700 160 L 0 160 Z" fill="url(#chartGrad)"></path>
+                      <path d="M 0 140 Q 60 120, 120 100 T 240 70 T 360 45 T 480 30 T 600 20 T 700 10" fill="none" stroke="#4F46E5" stroke-width="2.5"></path>
+                      <!-- Key Data Points -->
+                      <circle cx="120" cy="100" r="4" fill="#FFFFFF" stroke="#4F46E5" stroke-width="2"></circle>
+                      <circle cx="240" cy="70" r="4" fill="#FFFFFF" stroke="#4F46E5" stroke-width="2"></circle>
+                      <circle cx="360" cy="45" r="4" fill="#FFFFFF" stroke="#4F46E5" stroke-width="2"></circle>
+                      <circle cx="480" cy="30" r="4" fill="#FFFFFF" stroke="#4F46E5" stroke-width="2"></circle>
+                      <circle cx="600" cy="20" r="5" fill="#4F46E5" stroke="#FFFFFF" stroke-width="2"></circle>
+                    </svg>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-tertiary); margin-top: 8px; font-family: 'JetBrains Mono', monospace;">
+                    <span>08:00</span>
+                    <span>10:00</span>
+                    <span>12:00</span>
+                    <span>14:00</span>
+                    <span>16:00</span>
+                    <span>18:00 (Hiện tại)</span>
+                    <span>20:00</span>
+                    <span>22:00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Live Room Status Monitors -->
+            <div class="card">
+              <div class="card-header">
+                <h3>Trạng Thái Phòng Chiếu Live</h3>
+                <span style="font-size: 11px; font-weight: 600; color: #10B981;">• 4 Sẵn Sàng</span>
+              </div>
+              <div class="card-body">
+                <div class="live-room-list" id="dashboard-room-monitors">
+                  <!-- Generated dynamically in JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==============================================================
+             PAGE 2: QUẢN LÝ LỊCH CHIẾU & SƠ ĐỒ GHẾ
+             ============================================================== -->
+        <section class="view-page" id="view-schedule" aria-label="Quản lý Lịch chiếu và Sơ đồ ghế">
+          <div class="view-header">
+            <div class="view-title">
+              <h2>Lịch Chiếu & Cấu Hình Sơ Đồ Ghế</h2>
+              <p>Quản lý dòng thời gian phòng chiếu và kiểm tra trạng thái từng vị trí ghế theo thời gian thực.</p>
+            </div>
+            <div class="view-actions">
+              <select class="filter-select" id="schedule-room-filter">
+                <option value="all">Tất cả phòng chiếu</option>
+                <option value="screen1">Screen 01 (120 ghế)</option>
+                <option value="screen2">Screen 02 (IMAX - 160 ghế)</option>
+                <option value="screen3">Screen 03 (90 ghế)</option>
+                <option value="screen4">Screen 04 (110 ghế)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Date Navigation Bar -->
+          <div class="schedule-topbar">
+            <div class="date-strip" id="schedule-date-strip">
+              <button class="date-pill active" data-day="0">Hôm nay (15/10)</button>
+              <button class="date-pill" data-day="1">Ngày mai (16/10)</button>
+              <button class="date-pill" data-day="2">Thứ Sáu (17/10)</button>
+              <button class="date-pill" data-day="3">Thứ Bảy (18/10)</button>
+              <button class="date-pill" data-day="4">Chủ Nhật (19/10)</button>
+            </div>
+            <span style="font-size: 12px; color: var(--text-tertiary);">Nhấp vào suất chiếu để tải sơ đồ ghế</span>
+          </div>
+
+          <!-- Timeline Gantt Card -->
+          <div class="card timeline-card">
+            <div class="timeline-scale">
+              <span class="timeline-scale-label">Phòng</span>
+              <span>10:00</span>
+              <span>11:00</span>
+              <span>12:00</span>
+              <span>13:00</span>
+              <span>14:00</span>
+              <span>15:00</span>
+              <span>16:00</span>
+              <span>17:00</span>
+              <span>18:00</span>
+              <span>19:00</span>
+              <span>20:00</span>
+              <span>21:00</span>
+              <span>22:00</span>
+              <span>23:00</span>
+            </div>
+            <div class="timeline-rows" id="timeline-rows-container">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Seat Studio / Live Matrix Inspector -->
+          <div class="seat-studio-container">
+            <div class="card seat-canvas-card">
+              <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                <div>
+                  <h3 id="current-inspecting-room-title" style="font-size: 15px; font-weight: 700;">Screen 01 • Ánh Nắng Mùa Hạ (Suất 18:30)</h3>
+                  <span style="font-size: 12px; color: var(--text-secondary);">Màu sắc pastel dịu mắt • Chuẩn WCAG trên nền sáng</span>
+                </div>
+                <span class="format-badge">2D Phụ đề</span>
+              </div>
+
+              <!-- Curved Cinema Screen -->
+              <div class="cinema-screen-wrap">
+                <div class="cinema-screen-curve"></div>
+                <div class="cinema-screen-label">M À N   H Ì N H   C H I Ế U</div>
+              </div>
+
+              <!-- Seat Grid -->
+              <div class="seat-matrix" id="schedule-seat-matrix">
+                <!-- Generated via JS -->
+              </div>
+
+              <!-- Seat Legend -->
+              <div class="seat-legend">
+                <div class="legend-item">
+                  <div class="legend-swatch" style="background: var(--seat-standard-bg); border-color: var(--seat-standard-border);"></div>
+                  <span>Ghế Thường (100k)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-swatch" style="background: var(--seat-vip-bg); border-color: var(--seat-vip-border);"></div>
+                  <span>Ghế VIP (130k)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-swatch" style="background: var(--seat-couple-bg); border-color: var(--seat-couple-border); width: 26px;"></div>
+                  <span>Sweetbox Couple (260k)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-swatch" style="background: var(--seat-booked-bg); border-color: var(--seat-booked-border);"></div>
+                  <span>Đã bán / Khóa</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-swatch" style="background: var(--seat-active-bg); border-color: var(--seat-active-border);"></div>
+                  <span>Đang chọn</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seat Stats Sidebar -->
+            <div class="seat-info-sidebar">
+              <div class="card">
+                <div class="card-header">
+                  <h3>Thống Kê Phòng Chiếu</h3>
+                </div>
+                <div class="card-body">
+                  <div class="stat-row">
+                    <span class="stat-label">Tổng số ghế</span>
+                    <span class="stat-val" id="stat-total-seats">120 ghế</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-label">Ghế đã đặt trước</span>
+                    <span class="stat-val" style="color: #047857;" id="stat-booked-seats">82 ghế</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-label">Ghế còn trống</span>
+                    <span class="stat-val" style="color: var(--accent-indigo);" id="stat-available-seats">38 ghế</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-label">Tỷ lệ lấp đầy phòng</span>
+                    <span class="stat-val" id="stat-fill-rate">68.3%</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-label">Doanh thu tạm tính</span>
+                    <span class="stat-val tabular-num" id="stat-est-revenue">9.860.000 đ</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Selected Seat Quick Inspector -->
+              <div class="card">
+                <div class="card-header">
+                  <h3>Thông Tin Vị Trí Ghế</h3>
+                </div>
+                <div class="card-body" id="seat-hover-details">
+                  <p style="font-size: 13px; color: var(--text-tertiary); text-align: center; padding: 12px 0;">
+                    Di chuột hoặc nhấp vào ghế bất kỳ để xem thông tin chi tiết.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==============================================================
+             PAGE 3: BÁN VÉ TẠI QUẦY (POS ALL-IN-ONE SINGLE SCREEN)
+             ============================================================== -->
+        <section class="view-page" id="view-pos" aria-label="Giao diện bán vé tại quầy">
+          <div class="pos-layout">
+            
+            <!-- Col 1: Film List & Showtimes Pills -->
+            <div class="pos-col-movies">
+              <div class="pos-search-box">
+                <svg class="pos-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="pos-search-input" id="pos-movie-search-input" placeholder="Tìm phim nhanh (F1)...">
+              </div>
+
+              <div class="pos-movie-scroll" id="pos-movie-list">
+                <!-- Movie cards rendered via JS -->
+              </div>
+            </div>
+
+            <!-- Col 2: Seat Map & Fast F&B add-ons -->
+            <div class="pos-col-stage">
+              <!-- Seat Matrix in POS -->
+              <div class="pos-seat-panel">
+                <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                  <div>
+                    <h3 id="pos-current-showing-header" style="font-size: 14.5px; font-weight: 700;">Ánh Nắng Mùa Hạ • Suất 18:30</h3>
+                    <span id="pos-current-room-label" style="font-size: 12px; color: var(--text-secondary);">Phòng Screen 01 • 2D Phụ đề</span>
+                  </div>
+                  <div style="display: flex; gap: 8px;">
+                    <span class="legend-item" style="font-size: 11.5px;">
+                      <span class="legend-swatch" style="background: var(--seat-active-bg); border-color: var(--seat-active-border); width: 12px; height: 12px;"></span> Đang chọn
+                    </span>
+                    <span class="legend-item" style="font-size: 11.5px;">
+                      <span class="legend-swatch" style="background: var(--seat-booked-bg); border-color: var(--seat-booked-border); width: 12px; height: 12px;"></span> Đã bán
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Minimal Curved Screen -->
+                <div class="cinema-screen-wrap" style="width: 70%; margin-bottom: var(--space-5);">
+                  <div class="cinema-screen-curve"></div>
+                  <div class="cinema-screen-label" style="font-size: 10px;">M À N   H Ì N H</div>
+                </div>
+
+                <!-- Interactive POS Seat Matrix -->
+                <div class="seat-matrix" id="pos-seat-matrix">
+                  <!-- Populated via JS -->
+                </div>
+              </div>
+
+              <!-- Quick F&B Section -->
+              <div class="pos-fnb-panel">
+                <div class="pos-fnb-header">
+                  <h4>Bắp Nước Nhanh (F&B Fast-Tap)</h4>
+                  <span style="font-size: 11px; color: var(--text-tertiary);">Nhấp để thêm vào đơn</span>
+                </div>
+                <div class="fnb-grid" id="pos-fnb-grid">
+                  <!-- Populated via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Col 3: Live Order Summary & Checkout -->
+            <div class="pos-col-cart">
+              <div class="pos-cart-header">
+                <h3>Đơn Hàng Hiện Tại</h3>
+                <button class="btn btn-subtle" id="btn-clear-cart" style="padding: 4px 8px; font-size: 11.5px;" title="Xóa toàn bộ">Xóa tất cả</button>
+              </div>
+
+              <div class="pos-cart-scroll" id="pos-cart-scroll">
+                <!-- Movie & Showtime Info Banner -->
+                <div class="cart-movie-summary">
+                  <div class="cart-movie-title" id="cart-movie-title">Chưa chọn phim</div>
+                  <div class="cart-movie-time" id="cart-movie-time">Chọn phim và giờ chiếu ở cột trái</div>
+                </div>
+
+                <!-- Selected Seats Breakdown -->
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-tertiary); letter-spacing: 0.05em; margin-bottom: 6px;">
+                    Ghế Đã Chọn (<span id="cart-seat-count">0</span>)
+                  </div>
+                  <div id="cart-seats-container" style="display: flex; flex-direction: column; gap: 4px;">
+                    <p style="font-size: 12px; color: var(--text-tertiary); font-style: italic;">Chưa có ghế nào được chọn.</p>
+                  </div>
+                </div>
+
+                <!-- Selected F&B Breakdown -->
+                <div style="margin-top: var(--space-2);">
+                  <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-tertiary); letter-spacing: 0.05em; margin-bottom: 6px;">
+                    Combo Bắp Nước
+                  </div>
+                  <div id="cart-fnb-container" style="display: flex; flex-direction: column; gap: 4px;">
+                    <!-- Dynamically updated -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cart Footer & Checkout Controls -->
+              <div class="pos-cart-footer">
+                <!-- Coupon / Customer Phone -->
+                <div class="coupon-row">
+                  <input type="text" class="coupon-input" id="cart-coupon-input" placeholder="Mã giảm giá / SĐT TV">
+                  <button class="btn btn-secondary" id="btn-apply-coupon" style="padding: 7px 12px; font-size: 12px;">Áp dụng</button>
+                </div>
+
+                <!-- Price Totals -->
+                <div class="cart-total-banner">
+                  <span class="cart-total-label">Tổng thanh toán:</span>
+                  <span class="cart-total-amount" id="cart-total-display">0 đ</span>
+                </div>
+
+                <!-- Fast Payment Options -->
+                <div class="pos-pay-buttons">
+                  <button class="btn-pay-option" id="btn-pay-cash" title="Phím F9">
+                    <span>💵 Tiền mặt</span>
+                    <span style="font-size: 10px; color: var(--text-tertiary);">Phím F9</span>
+                  </button>
+                  <button class="btn-pay-option" id="btn-pay-qr" title="Phím F10">
+                    <span>📱 Quét QR VNPay</span>
+                    <span style="font-size: 10px; color: var(--text-tertiary);">Phím F10</span>
+                  </button>
+                </div>
+
+                <!-- Big Primary Finish Button -->
+                <button class="btn-checkout-finish" id="btn-pos-checkout" disabled>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>Thanh Toán & In Vé (F12)</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ==============================================================
+             PAGE 4: BÁO CÁO & DOANH THU
+             ============================================================== -->
+        <section class="view-page" id="view-reports" aria-label="Báo cáo doanh thu chi tiết">
+          <div class="view-header">
+            <div class="view-title">
+              <h2>Báo Cáo Giao Dịch & Doanh Thu</h2>
+              <p>Danh sách vé bán, phân tích doanh thu theo rạp và phương thức thanh toán.</p>
+            </div>
+            <div class="view-actions">
+              <button class="btn btn-secondary" id="btn-export-csv">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Xuất File CSV</span>
+              </button>
+              <button class="btn btn-primary" id="btn-print-report">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                <span>In Báo Cáo Ca</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Clean Filter Bar -->
+          <div class="table-filter-bar">
+            <div class="filter-left-group">
+              <select class="filter-select" id="report-period-filter">
+                <option value="today">Hôm nay (15/10/2026)</option>
+                <option value="yesterday">Hôm qua</option>
+                <option value="7days">7 ngày qua</option>
+                <option value="month">Tháng 10/2026</option>
+              </select>
+
+              <select class="filter-select" id="report-screen-filter">
+                <option value="all">Tất cả phòng chiếu</option>
+                <option value="Screen 01">Screen 01</option>
+                <option value="Screen 02">Screen 02 (IMAX)</option>
+                <option value="Screen 03">Screen 03</option>
+                <option value="Screen 04">Screen 04</option>
+              </select>
+
+              <select class="filter-select" id="report-payment-filter">
+                <option value="all">Tất cả phương thức</option>
+                <option value="QR VNPay">QR VNPay</option>
+                <option value="Tiền mặt">Tiền mặt</option>
+                <option value="Thẻ Visa/Master">Thẻ Ngân Hàng</option>
+              </select>
+            </div>
+
+            <div>
+              <input type="text" class="search-field-table" id="report-search-table" placeholder="Tìm theo mã vé, tên phim, khách hàng...">
+            </div>
+          </div>
+
+          <!-- Minimalist Data Table -->
+          <div class="data-table-card">
+            <table class="minimal-table" id="reports-data-table">
+              <thead>
+                <tr>
+                  <th class="align-left">Mã Vé</th>
+                  <th class="align-left">Thời Gian</th>
+                  <th class="align-left">Tên Phim</th>
+                  <th class="align-center">Phòng</th>
+                  <th class="align-left">Vị Trí Ghế</th>
+                  <th class="align-center">F&B Kèm</th>
+                  <th class="align-center">Thanh Toán</th>
+                  <th class="align-right">Tổng Tiền</th>
+                  <th class="align-center">Trạng Thái</th>
+                </tr>
+              </thead>
+              <tbody id="reports-table-tbody">
+                <!-- Rendered dynamically via JS -->
+              </tbody>
+            </table>
+
+            <!-- Table Pagination -->
+            <div class="table-pagination-footer">
+              <span id="report-pagination-info">Hiển thị 1 - 8 trong 1,482 giao dịch hôm nay</span>
+              <div class="pagination-controls">
+                <button class="page-btn" id="btn-page-prev">‹</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn" id="btn-page-next">›</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ==============================================================
+       MODAL 1: GLOBAL QUICK SEARCH (CTRL + K)
+       ============================================================== -->
+  <div class="modal-overlay" id="modal-quick-search" aria-hidden="true">
+    <div class="modal-box search-modal-box">
+      <div class="search-modal-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="search-modal-input" id="global-search-query-input" placeholder="Nhập tên phim, số ghế, mã đơn hàng, suất chiếu...">
+        <button class="modal-close-btn" id="btn-close-global-search">✕</button>
+      </div>
+      <div class="search-results-list" id="global-search-results">
+        <!-- Results rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       MODAL 2: VNPAY / PAYMENT QR MODAL
+       ============================================================== -->
+  <div class="modal-overlay" id="modal-payment-qr" aria-hidden="true">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="payment-modal-title">Thanh Toán Quét Mã QR VNPay</h3>
+        <button class="modal-close-btn" id="btn-close-payment-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="qr-display-box">
+          <div class="qr-code-svg">
+            <!-- Vector QR Mockup -->
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+              <rect x="0" y="0" width="100" height="100" fill="#FFFFFF"></rect>
+              <!-- Top-Left Corner Box -->
+              <rect x="10" y="10" width="24" height="24" fill="#0F172A"></rect>
+              <rect x="14" y="14" width="16" height="16" fill="#FFFFFF"></rect>
+              <rect x="18" y="18" width="8" height="8" fill="#4F46E5"></rect>
+              <!-- Top-Right Corner Box -->
+              <rect x="66" y="10" width="24" height="24" fill="#0F172A"></rect>
+              <rect x="70" y="14" width="16" height="16" fill="#FFFFFF"></rect>
+              <rect x="74" y="18" width="8" height="8" fill="#4F46E5"></rect>
+              <!-- Bottom-Left Corner Box -->
+              <rect x="10" y="66" width="24" height="24" fill="#0F172A"></rect>
+              <rect x="14" y="70" width="16" height="16" fill="#FFFFFF"></rect>
+              <rect x="18" y="74" width="8" height="8" fill="#4F46E5"></rect>
+              <!-- Data patterns -->
+              <rect x="38" y="12" width="6" height="6" fill="#0F172A"></rect>
+              <rect x="48" y="16" width="8" height="4" fill="#0F172A"></rect>
+              <rect x="40" y="26" width="16" height="6" fill="#0F172A"></rect>
+              <rect x="12" y="40" width="8" height="8" fill="#0F172A"></rect>
+              <rect x="26" y="44" width="6" height="12" fill="#0F172A"></rect>
+              <rect x="42" y="42" width="16" height="16" fill="#4F46E5"></rect>
+              <rect x="68" y="40" width="8" height="10" fill="#0F172A"></rect>
+              <rect x="80" y="44" width="10" height="6" fill="#0F172A"></rect>
+              <rect x="38" y="66" width="8" height="8" fill="#0F172A"></rect>
+              <rect x="52" y="70" width="6" height="14" fill="#0F172A"></rect>
+              <rect x="68" y="68" width="20" height="8" fill="#0F172A"></rect>
+              <rect x="72" y="80" width="12" height="10" fill="#0F172A"></rect>
+            </svg>
+          </div>
+          <div style="font-size: 15px; font-weight: 700; color: var(--accent-indigo);" id="qr-modal-amount">
+            220.000 đ
+          </div>
+          <span style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Khách hàng quét mã qua ứng dụng Ngân Hàng hoặc Ví Điện Tử</span>
+        </div>
+
+        <div style="display: flex; gap: var(--space-3);">
+          <button class="btn btn-secondary" id="btn-cancel-payment" style="flex: 1;">Hủy thanh toán</button>
+          <button class="btn btn-primary" id="btn-confirm-payment-success" style="flex: 1;">Xác nhận Đã Nhận Tiền</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       MODAL 3: TICKET PRINT RECEIPT PREVIEW
+       ============================================================== -->
+  <div class="modal-overlay" id="modal-receipt-preview" aria-hidden="true">
+    <div class="modal-box" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3>Biên Lai & Vé Xem Phim</h3>
+        <button class="modal-close-btn" id="btn-close-receipt-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="ticket-receipt-card" id="ticket-receipt-content">
+          <!-- Populated via JS -->
+        </div>
+        <div style="display: flex; gap: var(--space-3);">
+          <button class="btn btn-secondary" id="btn-close-receipt-done" style="flex: 1;">Đóng</button>
+          <button class="btn btn-primary" id="btn-trigger-hardware-print" style="flex: 1;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            <span>In Ra Máy In POS</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Minimal Toast System -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Script logic -->
+  <script src="app.js"></script>
+</body>
+</html>
